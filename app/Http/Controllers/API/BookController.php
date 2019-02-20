@@ -6,7 +6,8 @@ use App\Book;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
 use Validator;
-
+use Illuminate\Support\Facades\Input;
+use App\file;
 class BookController extends BaseController
 {
 
@@ -21,29 +22,28 @@ class BookController extends BaseController
     public function store(Request $request)
     {
         # code...
-        $input = $request->all();
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'details' => 'required',
-        ]);
+        // $input = $request->all();
+        // $validator = Validator::make($input, [
+        //     'name' => 'required',
+        //     'title' => 'required',
+        //     // 'image' => 'required',
+        // ]);
 
-        if ($validator->fails()) {
-            # code...
-            return $this->sendError('error validation', $validator->errors());
-        }
+        // if ($validator->fails()) {
+        //     # code...
+        //     return $this->sendError('error validation', $validator->errors());
+        // }
 
-        $book = new Book();
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = str_slug($request->title).'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/storage/public');
-            $imagePath = $destinationPath. "/".  $name;
-            $image->move($destinationPath, $name);
-            $book->image = $name;
+        $book = new file;
+        $book->title = Input::get('name');
+        if (Input::hasFile('image')) {
+            $file = Input::file('image');
+            $file->move(public_path(). '/', $file->getClientOriginalName());
+            $book->name = $file->getClientOriginalName();
           }
     
-        $book->name = $request->name;
-        $book->detials = $request->details;
+     //   $book->name = $request->name;
+        // $book->detials = $request->details;
         $book->save();
     
         return $this->sendResponse($book->toArray(), 'Book  created succesfully');
@@ -67,7 +67,7 @@ class BookController extends BaseController
         $input = $request->all();
         $validator = Validator::make($input, [
             'name' => 'required',
-            'details' => 'required',
+            'title' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -75,7 +75,7 @@ class BookController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         $book->name = $input['name'];
-        $book->details = $input['details'];
+        $book->title = $input['title'];
         $book->save();
         return $this->sendResponse($book->toArray(), 'Book  updated succesfully');
 
