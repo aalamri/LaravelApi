@@ -14,6 +14,7 @@ class BookController extends BaseController
     {
         # code...
         $books = Book::all();
+     
         return $this->sendResponse($books->toArray(), 'Books read succesfully');
     }
 
@@ -31,7 +32,20 @@ class BookController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
 
-        $book = Book::create($input);
+        $book = new Book();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = str_slug($request->title).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/storage/public');
+            $imagePath = $destinationPath. "/".  $name;
+            $image->move($destinationPath, $name);
+            $book->image = $name;
+          }
+    
+        $book->name = $request->name;
+        $book->detials = $request->details;
+        $book->save();
+    
         return $this->sendResponse($book->toArray(), 'Book  created succesfully');
 
     }
