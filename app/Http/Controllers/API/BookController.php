@@ -26,8 +26,8 @@ class BookController extends BaseController
         $validator = Validator::make($input, [
             'name' => 'required',
             'title' => 'required',
-            // 'image' => 'required',
-        ]);
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
         if ($validator->fails()) {
             # code...
@@ -36,16 +36,16 @@ class BookController extends BaseController
 
         $book = new Book;
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = str_slug($request->title).'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/uploads/articles');
-            $imagePath = $destinationPath. "/".  $name;
-            $image->move($destinationPath, $name);
-            $book->image = $name;
-          }
+        // if ($request->hasFile('image')) {
+        //     $image = $request->file('image');
+        //     $name = str_slug($request->title).'.'.$image->getClientOriginalExtension();
+        //     $destinationPath = public_path('/uploads/articles');
+        //     $imagePath = $destinationPath. "/".  $name;
+        //     $image->move($destinationPath, $name);
+        //     $book->image = $name;
+        //   }
     
-    
+        $book->image = $request->file('image')->store('image');
         $book->name = $request->name;
         $book->title = $request->title;
         $book->save();
