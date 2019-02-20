@@ -22,28 +22,32 @@ class BookController extends BaseController
     public function store(Request $request)
     {
         # code...
-        // $input = $request->all();
-        // $validator = Validator::make($input, [
-        //     'name' => 'required',
-        //     'title' => 'required',
-        //     // 'image' => 'required',
-        // ]);
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'name' => 'required',
+            'title' => 'required',
+            // 'image' => 'required',
+        ]);
 
-        // if ($validator->fails()) {
-        //     # code...
-        //     return $this->sendError('error validation', $validator->errors());
-        // }
+        if ($validator->fails()) {
+            # code...
+            return $this->sendError('error validation', $validator->errors());
+        }
 
-        $book = new file;
-        $book->title = Input::get('name');
-        if (Input::hasFile('image')) {
-            $file = Input::file('image');
-            $file->move(public_path(). '/', $file->getClientOriginalName());
-            $book->name = $file->getClientOriginalName();
+        $book = new Book;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = str_slug($request->title).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/articles');
+            $imagePath = $destinationPath. "/".  $name;
+            $image->move($destinationPath, $name);
+            $book->image = $name;
           }
     
-     //   $book->name = $request->name;
-        // $book->detials = $request->details;
+    
+        $book->name = $request->name;
+        $book->title = $request->title;
         $book->save();
     
         return $this->sendResponse($book->toArray(), 'Book  created succesfully');
