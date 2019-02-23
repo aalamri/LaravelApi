@@ -6,8 +6,7 @@ use App\Book;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
 use Validator;
-use Illuminate\Support\Facades\Input;
-use App\file;
+
 class BookController extends BaseController
 {
 
@@ -15,7 +14,6 @@ class BookController extends BaseController
     {
         # code...
         $books = Book::all();
-     
         return $this->sendResponse($books->toArray(), 'Books read succesfully');
     }
 
@@ -25,31 +23,15 @@ class BookController extends BaseController
         $input = $request->all();
         $validator = Validator::make($input, [
             'name' => 'required',
-            'title' => 'required',
-
-            ]);
+            'details' => 'required',
+        ]);
 
         if ($validator->fails()) {
             # code...
             return $this->sendError('error validation', $validator->errors());
         }
 
-        $book = new Book;
-
-        // if ($request->hasFile('image')) {
-        //     $image = $request->file('image');
-        //     $name = str_slug($request->title).'.'.$image->getClientOriginalExtension();
-        //     $destinationPath = public_path('/uploads/articles');
-        //     $imagePath = $destinationPath. "/".  $name;
-        //     $image->move($destinationPath, $name);
-        //     $book->image = $name;
-        //   }
-    
-        $book->image = $request->file('image')->store('image');
-        $book->name = $request->name;
-        $book->title = $request->title;
-        $book->save();
-    
+        $book = Book::create($input);
         return $this->sendResponse($book->toArray(), 'Book  created succesfully');
 
     }
@@ -71,7 +53,7 @@ class BookController extends BaseController
         $input = $request->all();
         $validator = Validator::make($input, [
             'name' => 'required',
-            'title' => 'required',
+            'details' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -79,7 +61,7 @@ class BookController extends BaseController
             return $this->sendError('error validation', $validator->errors());
         }
         $book->name = $input['name'];
-        $book->title = $input['title'];
+        $book->details = $input['details'];
         $book->save();
         return $this->sendResponse($book->toArray(), 'Book  updated succesfully');
 
