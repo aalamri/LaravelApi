@@ -26,7 +26,7 @@ class BookController extends BaseController
         $validator = Validator::make($input, [
             'name' => 'required',
             'title' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
             ]);
 
         if ($validator->fails()) {
