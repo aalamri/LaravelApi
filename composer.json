@@ -12,6 +12,8 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
+        "tcg/voyager": "^1.2",
+        "test-hook": "^1.0",
         "tymon/jwt-auth": "^0.5.12"
     },
     "require-dev": {
@@ -59,5 +61,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "hooks": {
+            "type": "composer",
+            "url": "https://larapack.io"
+        }
     }
 }
