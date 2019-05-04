@@ -18,6 +18,8 @@ class CreateBooksTable extends Migration
             $table->string('name');
             $table->text('details');
             $table->string('image');
+            $table->string('price');
+            $table->string('quantity');
             $table->timestamps();
         });
     }
