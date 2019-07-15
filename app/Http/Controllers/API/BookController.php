@@ -10,10 +10,15 @@ use Validator;
 class BookController extends BaseController
 {
 
-    public function index()
+    public function index(Request $request)
     {
         # code...
-        $books = Book::all();
+        if ($request->query("keyword")) {
+            $word = $request->query("keyword");
+            $books = Book::where("name", "like", "%$word%")->orWhere("details","like","%$word%")->get();
+        } else {
+            $books = Book::all();
+        }
         return $this->sendResponse($books->toArray(), 'Books read succesfully');
     }
 

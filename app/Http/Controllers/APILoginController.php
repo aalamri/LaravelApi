@@ -16,6 +16,8 @@ class APILoginController extends Controller
 
 
     public function login( Request $request){
+        return 1;
+        dd($request -> all());
         $validator = Validator::make($request -> all(),[
          'email' => 'required|string|email|max:255',
          'password'=> 'required'
@@ -23,11 +25,11 @@ class APILoginController extends Controller
 
         if ($validator -> fails()) {
             return response()->json($validator->errors());
-            
         }
 
        
         $credentials = $request->only('email','password');
+        dd($credentials);
         try{
             if (! $token = JWTAuth::attempt( $credentials) ) {
                 return response()->json( ['error'=> 'invalid username and password'],401);
