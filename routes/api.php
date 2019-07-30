@@ -20,12 +20,14 @@ use Illuminate\Http\Request;
 Route::post('user/register','APIRegisterController@register');
 Route::post('user/login','APILoginController@login');
 
-Route::middleware('jwt.auth')->get('/users', function (Request $request) {
+Route::middleware('jwt.auth')->post('/users', function (Request $request) {
     return $request->user();
 });
 
 //Route::middleware('jwt.auth')->group(function(){
     Route::resource('books', 'API\BookController');
+    Route::middleware('jwt.auth')->resource('favorites', 'API\FavoritesController');
     Route::resource('orders', 'API\OrdersController');
     Route::post('orders/index', 'API\OrdersController@index');
+    Route::middleware('jwt.auth')->post('favorites/index', 'API\FavoritesController@index');
 //});

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersBooksTable extends Migration
+class FavoritesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateOrdersBooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders_books', function (Blueprint $table) {
-            $table->integer('order_id');
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->integer('user_id');
             $table->integer('book_id');
-            $table->primary(['book_id', 'order_id']);
+            $table->primary(['user_id', 'book_id']);
+            $table->timestamps();
+
         });
     }
 
@@ -27,6 +29,6 @@ class CreateOrdersBooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders_books');
+        //
     }
 }

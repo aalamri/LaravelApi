@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
             $table->integer("user_id");
             $table->integer("status")->default(1);
             $table->float("total");
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
