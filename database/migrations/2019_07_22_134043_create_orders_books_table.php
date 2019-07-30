@@ -14,8 +14,10 @@ class CreateOrdersBooksTable extends Migration
     public function up()
     {
         Schema::create('orders_books', function (Blueprint $table) {
-            $table->integer('order_id');
-            $table->integer('book_id');
+            $table->integer('order_id')->unsigned();
+            $table->integer('book_id')->unsigned();
+            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->primary(['book_id', 'order_id']);
         });
     }
