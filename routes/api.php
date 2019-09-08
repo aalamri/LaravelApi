@@ -17,17 +17,19 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::post('user/register','APIRegisterController@register');
-Route::post('user/login','APILoginController@login');
+Route::post('user/register', 'APIRegisterController@register');
+Route::post('user/login', 'APILoginController@login');
 
 Route::middleware('jwt.auth')->post('/users', function (Request $request) {
     return $request->user();
 });
 
 //Route::middleware('jwt.auth')->group(function(){
-    Route::resource('books', 'API\BookController');
-    Route::middleware('jwt.auth')->resource('favorites', 'API\FavoritesController');
-    Route::resource('orders', 'API\OrdersController');
-    Route::post('orders/index', 'API\OrdersController@index');
-    Route::middleware('jwt.auth')->post('favorites/index', 'API\FavoritesController@index');
+Route::resource('books', 'API\BookController');
+Route::middleware('jwt.auth')->resource('favorites', 'API\FavoritesController');
+Route::middleware('jwt.auth')->resource('orders', 'API\OrdersController');
+Route::middleware('jwt.auth')->post('orders/index', 'API\OrdersController@index');
+Route::middleware('jwt.auth')->post('orders/cancel', 'API\OrdersController@cancel');
+Route::middleware('jwt.auth')->post('orders/confirm', 'API\OrdersController@confirm');
+Route::middleware('jwt.auth')->post('favorites/index', 'API\FavoritesController@index');
 //});
