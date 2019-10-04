@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends \TCG\Voyager\Models\User
+class User  extends Model
 {
+    const SELLER_PRIVILAGE_ID=2;
+    const ADMIN_PRIVILAGE_ID=1;
     use Notifiable;
 
     /**
