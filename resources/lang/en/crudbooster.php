@@ -71,7 +71,7 @@ return [
     'alert_info'                    => 'Information',
     'alert_primary'                 => 'Information',
     'alert_session_expired'         => 'Your session was expired, please login again !',
-    'alert_password_wrong'          => 'Sorry your password is wrong !',
+    'alert_password_wrong'          => 'Sorry your password is wrong, or your account is blocked !',
     'alert_required'                => 'Please make sure to fill out all the required fields correctly',
     'alert_error_ajax'              => 'Okay, It is embarasing, something went wrong, we will fix it soon !',
     'alert_validation_error'        => 'Please fill out the form correctly : :error',

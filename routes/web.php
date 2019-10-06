@@ -10,7 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+function isActive($status){
+    if($status=="1"){
+        return "Active";
+    }
+    return "Blocked";
 
+}
 Route::get('/', function () {
     return view('welcome');
 });
