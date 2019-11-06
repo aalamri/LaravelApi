@@ -1,0 +1,1043 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Oct 31, 2019 at 07:52 PM
+-- Server version: 10.1.25-MariaDB-1~xenial
+-- PHP Version: 7.1.33-1+ubuntu16.04.1+deb.sury.org+1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `BooksApp`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books`
+--
+
+CREATE TABLE `books` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `details` text COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `price` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `quantity` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`id`, `name`, `details`, `image`, `price`, `quantity`, `created_at`, `updated_at`, `user_id`) VALUES
+(1, 'PHP', 'PHP 7.2', 'uploads/2019-10/internet-speed-test-fast-com.png', '15', '10', '2019-10-04 12:24:42', NULL, 2),
+(2, 'test6', 'fdsffsdfsdf', 'uploads/2019-10/4ff7d9b4-ff70-425c-9390-dd3ef78c0297.jpeg', '5', '100', '2019-10-04 13:20:46', NULL, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `parent_id` int(10) UNSIGNED DEFAULT NULL,
+  `order` int(11) NOT NULL DEFAULT '1',
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_apicustom`
+--
+
+CREATE TABLE `cms_apicustom` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `permalink` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tabel` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `aksi` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `kolom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `orderby` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sub_query_1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sql_where` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nama` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `keterangan` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parameter` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `method_type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parameters` longtext COLLATE utf8_unicode_ci,
+  `responses` longtext COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_apikey`
+--
+
+CREATE TABLE `cms_apikey` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `screetkey` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hit` int(11) DEFAULT NULL,
+  `status` varchar(25) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_dashboard`
+--
+
+CREATE TABLE `cms_dashboard` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_cms_privileges` int(11) DEFAULT NULL,
+  `content` longtext COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_email_queues`
+--
+
+CREATE TABLE `cms_email_queues` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `send_at` datetime DEFAULT NULL,
+  `email_recipient` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_from_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_from_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_cc_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_subject` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_content` text COLLATE utf8_unicode_ci,
+  `email_attachments` text COLLATE utf8_unicode_ci,
+  `is_sent` tinyint(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_email_templates`
+--
+
+CREATE TABLE `cms_email_templates` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `subject` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` longtext COLLATE utf8_unicode_ci,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `from_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `from_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cc_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cms_email_templates`
+--
+
+INSERT INTO `cms_email_templates` (`id`, `name`, `slug`, `subject`, `content`, `description`, `from_name`, `from_email`, `cc_email`, `created_at`, `updated_at`) VALUES
+(1, 'Email Template Forgot Password Backend', 'forgot_password_backend', NULL, '<p>Hi,</p><p>Someone requested forgot password, here is your new password : </p><p>[password]</p><p><br></p><p>--</p><p>Regards,</p><p>Admin</p>', '[password]', 'System', 'system@crudbooster.com', NULL, '2019-10-04 11:47:32', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_logs`
+--
+
+CREATE TABLE `cms_logs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `ipaddress` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `useragent` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_cms_users` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cms_logs`
+--
+
+INSERT INTO `cms_logs` (`id`, `ipaddress`, `useragent`, `url`, `description`, `id_cms_users`, `created_at`, `updated_at`) VALUES
+(1, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/edit-save/1', 'Update data Users at Menu Management', 1, '2019-10-04 11:51:20', NULL),
+(2, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/edit-save/3', 'Update data Orders at Menu Management', 1, '2019-10-04 12:00:15', NULL),
+(3, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/edit-save/3', 'Update data Orders at Menu Management', 1, '2019-10-04 12:00:25', NULL),
+(4, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/add-save', 'Add New Data Books at Menu Management', 1, '2019-10-04 12:04:31', NULL),
+(5, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/add-save', 'Add New Data Orders at Menu Management', 1, '2019-10-04 12:04:52', NULL),
+(6, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/delete/1', 'Delete data Users at Menu Management', 1, '2019-10-04 12:12:20', NULL),
+(7, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/add-save', 'Add New Data Users at Menu Management', 1, '2019-10-04 12:12:36', NULL),
+(8, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/cms_users/add-save', 'Add New Data Seller 1 at Users', 1, '2019-10-04 12:15:57', NULL),
+(9, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/login', 'seller@book.com login with IP Address 127.0.0.1', 2, '2019-10-04 12:16:18', NULL),
+(10, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/delete/7', 'Delete data order_books at Menu Management', 1, '2019-10-04 12:17:27', NULL),
+(11, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/delete/6', 'Delete data Books at Menu Management', 1, '2019-10-04 12:17:30', NULL),
+(12, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/menu_management/delete/8', 'Delete data orders at Menu Management', 1, '2019-10-04 12:17:33', NULL),
+(13, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/books/add-save', 'Add New Data PHP at Books', 2, '2019-10-04 12:24:42', NULL),
+(14, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/cms_users/add-save', 'Add New Data Seller 2 at Users', 1, '2019-10-04 12:27:33', NULL),
+(15, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/books/add-save', 'Add New Data .Net at Books', 1, '2019-10-04 12:28:04', NULL),
+(16, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://localhost:8000/admin/login', 'seller2@email.com login with IP Address 127.0.0.1', 3, '2019-10-04 12:28:35', NULL),
+(17, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://localhost:8000/admin/books/delete/2', 'Delete data .Net at Books', 3, '2019-10-04 13:18:16', NULL),
+(18, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://localhost:8000/admin/books/add-save', 'Add New Data test6 at Books', 3, '2019-10-04 13:20:46', NULL),
+(19, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/orders/add-save', 'Add New Data 1 at orders', 1, '2019-10-04 13:40:41', NULL),
+(20, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/orders/add-save', 'Add New Data 2 at orders', 1, '2019-10-04 13:59:49', NULL),
+(21, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/orders_books/add-save', 'Add New Data 1 at order_books', 1, '2019-10-04 13:59:55', NULL),
+(22, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/orders_books/add-save', 'Add New Data 2 at order_books', 1, '2019-10-04 14:03:49', NULL),
+(23, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/login', 'admin@crudbooster.com login with IP Address 127.0.0.1', 1, '2019-10-06 11:59:24', NULL),
+(24, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/logout', 'admin@crudbooster.com logout', 1, '2019-10-06 11:59:30', NULL),
+(25, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/login', 'admin@crudbooster.com login with IP Address 127.0.0.1', 1, '2019-10-06 12:02:42', NULL),
+(26, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/login', 'admin@crudbooster.com login with IP Address 127.0.0.1', 1, '2019-10-11 20:30:19', NULL),
+(27, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36', 'http://127.0.0.1:8000/admin/login', 'seller2@email.com login with IP Address 127.0.0.1', 3, '2019-10-11 20:31:11', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_menus`
+--
+
+CREATE TABLE `cms_menus` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'url',
+  `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `color` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `is_dashboard` tinyint(1) NOT NULL DEFAULT '0',
+  `id_cms_privileges` int(11) DEFAULT NULL,
+  `sorting` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cms_menus`
+--
+
+INSERT INTO `cms_menus` (`id`, `name`, `type`, `path`, `color`, `icon`, `parent_id`, `is_active`, `is_dashboard`, `id_cms_privileges`, `sorting`, `created_at`, `updated_at`) VALUES
+(2, 'Books', 'Route', 'AdminBooksControllerGetIndex', NULL, 'fa fa-book', 0, 1, 0, 1, 2, '2019-10-04 11:51:49', NULL),
+(3, 'Orders', 'Route', 'AdminOrdersControllerGetIndex', 'normal', 'fa fa-shopping-basket', 0, 1, 0, 1, 1, '2019-10-04 11:55:31', '2019-10-04 12:00:25'),
+(4, 'Books', 'Module', 'books', 'normal', 'fa fa-book', 0, 1, 0, 2, 2, '2019-10-04 12:04:31', NULL),
+(5, 'Orders', 'Module', 'orders', 'normal', 'fa fa-shopping-basket', 0, 1, 0, 2, 1, '2019-10-04 12:04:52', NULL),
+(9, 'Users', 'Module', 'cms_users', 'normal', 'fa fa-group', 0, 1, 0, 1, 3, '2019-10-04 12:12:36', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_moduls`
+--
+
+CREATE TABLE `cms_moduls` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `table_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `controller` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_protected` tinyint(1) NOT NULL DEFAULT '0',
+  `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cms_moduls`
+--
+
+INSERT INTO `cms_moduls` (`id`, `name`, `icon`, `path`, `table_name`, `controller`, `is_protected`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'Notifications', 'fa fa-cog', 'notifications', 'cms_notifications', 'NotificationsController', 1, 1, '2019-10-04 11:47:31', NULL),
+(2, 'Privileges', 'fa fa-cog', 'privileges', 'cms_privileges', 'PrivilegesController', 1, 1, '2019-10-04 11:47:31', NULL),
+(3, 'Privileges Roles', 'fa fa-cog', 'privileges_roles', 'cms_privileges_roles', 'PrivilegesRolesController', 1, 1, '2019-10-04 11:47:31', NULL),
+(4, 'Users', 'fa fa-users', 'users', 'cms_users', 'AdminCmsUsersController', 0, 1, '2019-10-04 11:47:31', NULL),
+(5, 'Settings', 'fa fa-cog', 'settings', 'cms_settings', 'SettingsController', 1, 1, '2019-10-04 11:47:31', NULL),
+(6, 'Module Generator', 'fa fa-database', 'module_generator', 'cms_moduls', 'ModulsController', 1, 1, '2019-10-04 11:47:31', NULL),
+(7, 'Menu Management', 'fa fa-bars', 'menu_management', 'cms_menus', 'MenusController', 1, 1, '2019-10-04 11:47:31', NULL),
+(8, 'Email Template', 'fa fa-envelope-o', 'email_templates', 'cms_email_templates', 'EmailTemplatesController', 1, 1, '2019-10-04 11:47:31', NULL),
+(9, 'Statistic Builder', 'fa fa-dashboard', 'statistic_builder', 'cms_statistics', 'StatisticBuilderController', 1, 1, '2019-10-04 11:47:31', NULL),
+(10, 'API Generator', 'fa fa-cloud-download', 'api_generator', '', 'ApiCustomController', 1, 1, '2019-10-04 11:47:31', NULL),
+(11, 'Logs', 'fa fa-flag-o', 'logs', 'cms_logs', 'LogsController', 1, 1, '2019-10-04 11:47:31', NULL),
+(12, 'Users', 'fa fa-user', 'cms_users', 'cms_users', 'AdminCmsUsers1Controller', 0, 0, '2019-10-04 11:50:28', NULL),
+(13, 'Books', 'fa fa-book', 'books', 'books', 'AdminBooksController', 0, 0, '2019-10-04 11:51:49', NULL),
+(14, 'orders', 'fa fa-shopping-basket', 'orders', 'orders', 'AdminOrdersController', 0, 0, '2019-10-04 11:55:31', NULL),
+(15, 'order_books', 'fa fa-book', 'orders_books', 'orders_books', 'AdminOrdersBooksController', 0, 0, '2019-10-04 11:59:08', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_notifications`
+--
+
+CREATE TABLE `cms_notifications` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_cms_users` int(11) DEFAULT NULL,
+  `content` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_read` tinyint(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_privileges`
+--
+
+CREATE TABLE `cms_privileges` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_superadmin` tinyint(1) DEFAULT NULL,
+  `theme_color` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cms_privileges`
+--
+
+INSERT INTO `cms_privileges` (`id`, `name`, `is_superadmin`, `theme_color`, `created_at`, `updated_at`) VALUES
+(1, 'Super Administrator', 1, 'skin-red', '2019-10-04 11:47:31', NULL),
+(2, 'Sellers', 0, 'skin-blue', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_privileges_roles`
+--
+
+CREATE TABLE `cms_privileges_roles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `is_visible` tinyint(1) DEFAULT NULL,
+  `is_create` tinyint(1) DEFAULT NULL,
+  `is_read` tinyint(1) DEFAULT NULL,
+  `is_edit` tinyint(1) DEFAULT NULL,
+  `is_delete` tinyint(1) DEFAULT NULL,
+  `id_cms_privileges` int(11) DEFAULT NULL,
+  `id_cms_moduls` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cms_privileges_roles`
+--
+
+INSERT INTO `cms_privileges_roles` (`id`, `is_visible`, `is_create`, `is_read`, `is_edit`, `is_delete`, `id_cms_privileges`, `id_cms_moduls`, `created_at`, `updated_at`) VALUES
+(1, 1, 0, 0, 0, 0, 1, 1, '2019-10-04 11:47:31', NULL),
+(2, 1, 1, 1, 1, 1, 1, 2, '2019-10-04 11:47:31', NULL),
+(3, 0, 1, 1, 1, 1, 1, 3, '2019-10-04 11:47:31', NULL),
+(4, 1, 1, 1, 1, 1, 1, 4, '2019-10-04 11:47:31', NULL),
+(5, 1, 1, 1, 1, 1, 1, 5, '2019-10-04 11:47:31', NULL),
+(6, 1, 1, 1, 1, 1, 1, 6, '2019-10-04 11:47:31', NULL),
+(7, 1, 1, 1, 1, 1, 1, 7, '2019-10-04 11:47:31', NULL),
+(8, 1, 1, 1, 1, 1, 1, 8, '2019-10-04 11:47:31', NULL),
+(9, 1, 1, 1, 1, 1, 1, 9, '2019-10-04 11:47:31', NULL),
+(10, 1, 1, 1, 1, 1, 1, 10, '2019-10-04 11:47:31', NULL),
+(11, 1, 0, 1, 0, 1, 1, 11, '2019-10-04 11:47:31', NULL),
+(12, 1, 1, 1, 1, 1, 1, 12, NULL, NULL),
+(13, 1, 1, 1, 1, 1, 1, 13, NULL, NULL),
+(14, 1, 1, 1, 1, 1, 1, 14, NULL, NULL),
+(15, 1, 1, 1, 1, 1, 1, 15, NULL, NULL),
+(16, 1, 1, 1, 1, 1, 2, 13, NULL, NULL),
+(17, 1, 1, 1, 1, 1, 2, 15, NULL, NULL),
+(18, 1, 1, 1, 1, 1, 2, 14, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_settings`
+--
+
+CREATE TABLE `cms_settings` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci,
+  `content_input_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dataenum` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `helper` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `group_setting` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cms_settings`
+--
+
+INSERT INTO `cms_settings` (`id`, `name`, `content`, `content_input_type`, `dataenum`, `helper`, `created_at`, `updated_at`, `group_setting`, `label`) VALUES
+(1, 'login_background_color', NULL, 'text', NULL, 'Input hexacode', '2019-10-04 11:47:31', NULL, 'Login Register Style', 'Login Background Color'),
+(2, 'login_font_color', NULL, 'text', NULL, 'Input hexacode', '2019-10-04 11:47:31', NULL, 'Login Register Style', 'Login Font Color'),
+(3, 'login_background_image', NULL, 'upload_image', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Login Register Style', 'Login Background Image'),
+(4, 'email_sender', 'support@crudbooster.com', 'text', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Email Setting', 'Email Sender'),
+(5, 'smtp_driver', 'mail', 'select', 'smtp,mail,sendmail', NULL, '2019-10-04 11:47:31', NULL, 'Email Setting', 'Mail Driver'),
+(6, 'smtp_host', '', 'text', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Email Setting', 'SMTP Host'),
+(7, 'smtp_port', '25', 'text', NULL, 'default 25', '2019-10-04 11:47:31', NULL, 'Email Setting', 'SMTP Port'),
+(8, 'smtp_username', '', 'text', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Email Setting', 'SMTP Username'),
+(9, 'smtp_password', '', 'text', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Email Setting', 'SMTP Password'),
+(10, 'appname', 'Book System', 'text', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Application Setting', 'Application Name'),
+(11, 'default_paper_size', 'Legal', 'text', NULL, 'Paper size, ex : A4, Legal, etc', '2019-10-04 11:47:31', NULL, 'Application Setting', 'Default Paper Print Size'),
+(12, 'logo', NULL, 'upload_image', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Application Setting', 'Logo'),
+(13, 'favicon', NULL, 'upload_image', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Application Setting', 'Favicon'),
+(14, 'api_debug_mode', 'true', 'select', 'true,false', NULL, '2019-10-04 11:47:31', NULL, 'Application Setting', 'API Debug Mode'),
+(15, 'google_api_key', NULL, 'text', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Application Setting', 'Google API Key'),
+(16, 'google_fcm_key', NULL, 'text', NULL, NULL, '2019-10-04 11:47:31', NULL, 'Application Setting', 'Google FCM Key');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_statistics`
+--
+
+CREATE TABLE `cms_statistics` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_statistic_components`
+--
+
+CREATE TABLE `cms_statistic_components` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_cms_statistics` int(11) DEFAULT NULL,
+  `componentID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `component_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `area_name` varchar(55) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sorting` int(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `config` longtext COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_users`
+--
+
+CREATE TABLE `cms_users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_cms_privileges` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `status` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `cms_users`
+--
+
+INSERT INTO `cms_users` (`id`, `name`, `photo`, `email`, `password`, `id_cms_privileges`, `created_at`, `updated_at`, `status`) VALUES
+(1, 'Super Admin', NULL, 'admin@crudbooster.com', '$2y$10$r6V4SCNg9UOFM6/ApWMcouAuBN7rvfSl4i0BvnSvuL7.u/RjtPoN2', 1, '2019-10-04 11:47:31', NULL, 1),
+(2, 'Seller 1', 'uploads/2019-10/billing-management-console.png', 'seller@book.com', '$2y$10$KzwMbZNFed04jTZPAAXWdeKuelfeEO1FUBLIkdCSjdWAfvv9aLFLi', 2, '2019-10-04 12:15:57', NULL, 0),
+(3, 'Seller 2', 'uploads/2019-10/4ff7d9b4-ff70-425c-9390-dd3ef78c0297.jpeg', 'seller2@email.com', '$2y$10$2DvCPdRt2Fa/5.89WQ5D7.uvZgOLgjvaEgxVT1P7g6i.6pzwLE88S', 2, '2019-10-04 12:27:33', NULL, 1),
+(4, 'Customer 2', 'uploads/2019-10/4ff7d9b4-ff70-425c-9390-dd3ef78c0297.jpeg', 'Customer@email.com', '$2y$10$2DvCPdRt2Fa/5.89WQ5D7.uvZgOLgjvaEgxVT1P7g6i.6pzwLE88S', 3, '2019-10-04 12:27:33', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `favorites`
+--
+
+CREATE TABLE `favorites` (
+  `user_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2016_01_01_000000_add_voyager_user_fields', 1),
+(4, '2016_01_01_000000_create_data_types_table', 1),
+(5, '2016_01_01_000000_create_pages_table', 1),
+(6, '2016_01_01_000000_create_posts_table', 1),
+(8, '2016_05_19_173453_create_menu_table', 1),
+(9, '2016_10_21_190000_create_roles_table', 1),
+(10, '2016_10_21_190000_create_settings_table', 1),
+(11, '2016_11_30_135954_create_permission_table', 1),
+(12, '2016_11_30_141208_create_permission_role_table', 1),
+(13, '2016_12_26_201236_data_types__add__server_side', 1),
+(14, '2017_01_13_000000_add_route_to_menu_items_table', 1),
+(15, '2017_01_14_005015_create_translations_table', 1),
+(16, '2017_01_15_000000_make_table_name_nullable_in_permissions_table', 1),
+(17, '2017_03_06_000000_add_controller_to_data_types_table', 1),
+(18, '2017_04_11_000000_alter_post_nullable_fields_table', 1),
+(19, '2017_04_21_000000_add_order_to_data_rows_table', 1),
+(20, '2017_07_05_210000_add_policyname_to_data_types_table', 1),
+(21, '2017_08_05_000000_add_group_to_settings_table', 1),
+(22, '2017_11_26_013050_add_user_role_relationship', 1),
+(23, '2017_11_26_015000_create_user_roles_table', 1),
+(24, '2018_03_11_000000_add_user_settings', 1),
+(25, '2018_03_14_000000_add_details_to_data_types_table', 1),
+(26, '2018_03_16_000000_make_settings_value_nullable', 1),
+(53, '2016_02_15_204651_create_categories_table', 2),
+(54, '2016_08_07_145904_add_table_cms_apicustom', 2),
+(55, '2016_08_07_150834_add_table_cms_dashboard', 2),
+(56, '2016_08_07_151210_add_table_cms_logs', 2),
+(57, '2016_08_07_152014_add_table_cms_privileges', 2),
+(58, '2016_08_07_152214_add_table_cms_privileges_roles', 2),
+(59, '2016_08_07_152320_add_table_cms_settings', 2),
+(60, '2016_08_07_152421_add_table_cms_users', 2),
+(61, '2016_08_07_154624_add_table_cms_moduls', 2),
+(62, '2016_08_17_225409_add_status_cms_users', 2),
+(63, '2016_08_20_125418_add_table_cms_notifications', 2),
+(64, '2016_09_04_033706_add_table_cms_email_queues', 2),
+(65, '2016_09_16_035347_add_group_setting', 2),
+(66, '2016_09_16_045425_add_label_setting', 2),
+(67, '2016_09_17_104728_create_nullable_cms_apicustom', 2),
+(68, '2016_10_01_141740_add_method_type_apicustom', 2),
+(69, '2016_10_01_141846_add_parameters_apicustom', 2),
+(70, '2016_10_01_141934_add_responses_apicustom', 2),
+(71, '2016_10_01_144826_add_table_apikey', 2),
+(72, '2016_11_14_141657_create_cms_menus', 2),
+(73, '2016_11_15_132350_create_cms_email_templates', 2),
+(74, '2016_11_15_190410_create_cms_statistics', 2),
+(75, '2016_11_17_102740_create_cms_statistic_components', 2),
+(76, '2019_01_19_153932_create_books_table', 2),
+(77, '2019_07_22_133902_create_orders_table', 2),
+(78, '2019_07_22_134043_create_orders_books_table', 2),
+(79, '2019_07_30_120900_favorites_table', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `total` double(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `status`, `total`, `created_at`, `updated_at`) VALUES
+(1, 4, 0, 15000.00, '2019-10-04 13:40:41', NULL),
+(2, 4, 0, 15000.00, '2019-10-04 13:59:49', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders_books`
+--
+
+CREATE TABLE `orders_books` (
+  `order_id` int(10) UNSIGNED NOT NULL,
+  `book_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `orders_books`
+--
+
+INSERT INTO `orders_books` (`order_id`, `book_id`) VALUES
+(1, 1),
+(2, 1),
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `display_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'Administrator', '2019-09-30 12:37:15', '2019-09-30 12:37:15'),
+(2, 'user', 'Normal User', '2019-09-30 12:37:16', '2019-09-30 12:37:16'),
+(3, 'Seller', 'Seller', '2019-10-01 12:11:28', '2019-10-01 12:11:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `translations`
+--
+
+CREATE TABLE `translations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `table_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `column_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `foreign_key` int(10) UNSIGNED NOT NULL,
+  `locale` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `translations`
+--
+
+INSERT INTO `translations` (`id`, `table_name`, `column_name`, `foreign_key`, `locale`, `value`, `created_at`, `updated_at`) VALUES
+(1, 'data_types', 'display_name_singular', 5, 'pt', 'Post', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(2, 'data_types', 'display_name_singular', 6, 'pt', 'Página', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(3, 'data_types', 'display_name_singular', 1, 'pt', 'Utilizador', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(4, 'data_types', 'display_name_singular', 4, 'pt', 'Categoria', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(5, 'data_types', 'display_name_singular', 2, 'pt', 'Menu', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(6, 'data_types', 'display_name_singular', 3, 'pt', 'Função', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(7, 'data_types', 'display_name_plural', 5, 'pt', 'Posts', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(8, 'data_types', 'display_name_plural', 6, 'pt', 'Páginas', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(9, 'data_types', 'display_name_plural', 1, 'pt', 'Utilizadores', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(10, 'data_types', 'display_name_plural', 4, 'pt', 'Categorias', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(11, 'data_types', 'display_name_plural', 2, 'pt', 'Menus', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(12, 'data_types', 'display_name_plural', 3, 'pt', 'Funções', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(13, 'categories', 'slug', 1, 'pt', 'categoria-1', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(14, 'categories', 'name', 1, 'pt', 'Categoria 1', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(15, 'categories', 'slug', 2, 'pt', 'categoria-2', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(16, 'categories', 'name', 2, 'pt', 'Categoria 2', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(17, 'pages', 'title', 1, 'pt', 'Olá Mundo', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(18, 'pages', 'slug', 1, 'pt', 'ola-mundo', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(19, 'pages', 'body', 1, 'pt', '<p>Olá Mundo. Scallywag grog swab Cat o\'nine tails scuttle rigging hardtack cable nipper Yellow Jack. Handsomely spirits knave lad killick landlubber or just lubber deadlights chantey pinnace crack Jennys tea cup. Provost long clothes black spot Yellow Jack bilged on her anchor league lateen sail case shot lee tackle.</p>\r\n<p>Ballast spirits fluke topmast me quarterdeck schooner landlubber or just lubber gabion belaying pin. Pinnace stern galleon starboard warp carouser to go on account dance the hempen jig jolly boat measured fer yer chains. Man-of-war fire in the hole nipperkin handsomely doubloon barkadeer Brethren of the Coast gibbet driver squiffy.</p>', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(20, 'menu_items', 'title', 1, 'pt', 'Painel de Controle', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(21, 'menu_items', 'title', 2, 'pt', 'Media', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(22, 'menu_items', 'title', 13, 'pt', 'Publicações', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(23, 'menu_items', 'title', 3, 'pt', 'Utilizadores', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(24, 'menu_items', 'title', 12, 'pt', 'Categorias', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(25, 'menu_items', 'title', 14, 'pt', 'Páginas', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(26, 'menu_items', 'title', 4, 'pt', 'Funções', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(27, 'menu_items', 'title', 5, 'pt', 'Ferramentas', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(28, 'menu_items', 'title', 6, 'pt', 'Menus', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(29, 'menu_items', 'title', 7, 'pt', 'Base de dados', '2019-09-30 12:37:19', '2019-09-30 12:37:19'),
+(30, 'menu_items', 'title', 10, 'pt', 'Configurações', '2019-09-30 12:37:19', '2019-09-30 12:37:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'users/default.png',
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `settings` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'fgfggfgfgf', 'o.3odai@gmail.com', 'users/default.png', '2019-09-30 14:29:46', '$2y$10$JhEP2OHCp5BGZ7CuDb4EXOeG7A4WwhTE77Ta5OtI0PfoyNtW9ZtMa', NULL, NULL, '2019-07-30 10:54:54', '2019-09-30 14:29:46'),
+(2, 1, 'admin', 'your@email.com', 'users/default.png', NULL, '$2y$10$uqsbIkyhnXzFywXVIu3WYeCfQq7GPzuCl2oIoqM0C6ztGthqgOmqu', NULL, NULL, '2019-09-30 12:38:24', '2019-09-30 14:29:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE `user_roles` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `categories_slug_unique` (`slug`),
+  ADD KEY `categories_parent_id_foreign` (`parent_id`);
+
+--
+-- Indexes for table `cms_apicustom`
+--
+ALTER TABLE `cms_apicustom`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_apikey`
+--
+ALTER TABLE `cms_apikey`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_dashboard`
+--
+ALTER TABLE `cms_dashboard`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_email_queues`
+--
+ALTER TABLE `cms_email_queues`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_email_templates`
+--
+ALTER TABLE `cms_email_templates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_logs`
+--
+ALTER TABLE `cms_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_menus`
+--
+ALTER TABLE `cms_menus`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_moduls`
+--
+ALTER TABLE `cms_moduls`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_notifications`
+--
+ALTER TABLE `cms_notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_privileges`
+--
+ALTER TABLE `cms_privileges`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_privileges_roles`
+--
+ALTER TABLE `cms_privileges_roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_settings`
+--
+ALTER TABLE `cms_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_statistics`
+--
+ALTER TABLE `cms_statistics`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_statistic_components`
+--
+ALTER TABLE `cms_statistic_components`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_users`
+--
+ALTER TABLE `cms_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `favorites`
+--
+ALTER TABLE `favorites`
+  ADD PRIMARY KEY (`user_id`,`book_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders_books`
+--
+ALTER TABLE `orders_books`
+  ADD UNIQUE KEY `book_id` (`book_id`,`order_id`) USING BTREE,
+  ADD KEY `orders_books_order_id_foreign` (`order_id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_unique` (`name`);
+
+--
+-- Indexes for table `translations`
+--
+ALTER TABLE `translations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `translations_table_name_column_name_foreign_key_locale_unique` (`table_name`,`column_name`,`foreign_key`,`locale`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `users_role_id_foreign` (`role_id`);
+
+--
+-- Indexes for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`user_id`,`role_id`),
+  ADD KEY `user_roles_user_id_index` (`user_id`),
+  ADD KEY `user_roles_role_id_index` (`role_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_apicustom`
+--
+ALTER TABLE `cms_apicustom`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_apikey`
+--
+ALTER TABLE `cms_apikey`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_dashboard`
+--
+ALTER TABLE `cms_dashboard`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_email_queues`
+--
+ALTER TABLE `cms_email_queues`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_email_templates`
+--
+ALTER TABLE `cms_email_templates`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `cms_logs`
+--
+ALTER TABLE `cms_logs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `cms_menus`
+--
+ALTER TABLE `cms_menus`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `cms_moduls`
+--
+ALTER TABLE `cms_moduls`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `cms_notifications`
+--
+ALTER TABLE `cms_notifications`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_privileges`
+--
+ALTER TABLE `cms_privileges`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `cms_privileges_roles`
+--
+ALTER TABLE `cms_privileges_roles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `cms_settings`
+--
+ALTER TABLE `cms_settings`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `cms_statistics`
+--
+ALTER TABLE `cms_statistics`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_statistic_components`
+--
+ALTER TABLE `cms_statistic_components`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `cms_users`
+--
+ALTER TABLE `cms_users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `translations`
+--
+ALTER TABLE `translations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `categories`
+--
+ALTER TABLE `categories`
+  ADD CONSTRAINT `categories_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `orders_books`
+--
+ALTER TABLE `orders_books`
+  ADD CONSTRAINT `orders_books_book_id_foreign` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
+  ADD CONSTRAINT `orders_books_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+
+--
+-- Constraints for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD CONSTRAINT `user_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_roles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
