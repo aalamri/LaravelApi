@@ -49,7 +49,7 @@ class AdminBooksController extends \crocodicstudio\crudbooster\controllers\CBCon
         $this->form[] = ['label' => 'Image', 'name' => 'image', 'type' => 'upload', 'validation' => 'required|image|max:3000', 'width' => 'col-sm-10', 'help' => 'File types support : JPG, JPEG, PNG, GIF, BMP'];
         $this->form[] = ['label' => 'Price', 'name' => 'price', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
         $this->form[] = ['label' => 'Quantity', 'name' => 'quantity', 'type' => 'text', 'validation' => 'required|min:1|max:255', 'width' => 'col-sm-10'];
-        if (\crocodicstudio\crudbooster\helpers\CRUDBooster::me()->id_cms_privileges == App\User::ADMIN_PRIVILAGE_ID) {
+        if (\crocodicstudio\crudbooster\helpers\CRUDBooster::me()->id_cms_privileges == \App\User::ADMIN_PRIVILAGE_ID) {
             $this->form[] = ['label' => 'Seller', 'name' => 'user_id', 'type' => 'select', 'validation' => 'required', 'width' => 'col-sm-9', 'datatable' => 'cms_users,email', 'datatable_where' => 'id_cms_privileges=2'];
         }
 //        $this->form[] = ['label' => 'Seller', 'name' => 'user_id', 'type' => 'select', 'validation' => 'required', 'width' => 'col-sm-9', 'datatable' => 'cms_users,email', 'datatable_where' => 'id_cms_privileges=2'];
